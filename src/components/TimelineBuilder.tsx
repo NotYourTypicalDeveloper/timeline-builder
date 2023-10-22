@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import TimelineArray from "./TimelineArray.tsx";
+import TimelineCard from "./TimelineCard.tsx";
 
 export interface IEventsProps {
   text: string;
@@ -9,6 +10,7 @@ const TimelineBuilder: React.FC = () => {
   const [events, setEvents] = useState<IEventsProps[]>([]);
   const [newEvent, setNewEvent] = useState("");
   const [showAddInput, setShowAddInput] = useState(false);
+  const addInputRef = useRef();
 
   const handleAddEvent = () => {
     if (newEvent.trim() !== "") {
@@ -22,6 +24,7 @@ const TimelineBuilder: React.FC = () => {
     if (e.key === "Enter") {
       setEvents([...events, { text: e.target.value, id: Date.now() }]);
       setShowAddInput(false);
+      addInputRef.current.value = "";
     }
   };
   const handleEditEvent = (id: number, newText: string) => {
@@ -57,6 +60,7 @@ const TimelineBuilder: React.FC = () => {
             value={newEvent}
             onChange={(e) => setNewEvent(e.target.value)}
             onKeyDown={handleKeyPress}
+            ref={addInputRef}
           />
           <button className="action-button" onClick={handleAddEvent}>
             Add Event
@@ -65,11 +69,19 @@ const TimelineBuilder: React.FC = () => {
       )}
 
       <div className="timeline-bar" onClick={handleTimelineClick}>
-        <TimelineArray
+        {/* <TimelineArray
           eventsArr={events}
           handleEditEvent={handleEditEvent}
           handleDeleteEvent={handleDeleteEvent}
-        />
+        /> */}
+        {events.map((event) => (
+          <TimelineCard
+            key={event.id}
+            eventItem={event}
+            handleEditEvent={handleEditEvent}
+            handleDeleteEvent={handleDeleteEvent}
+          />
+        ))}
       </div>
     </div>
   );
