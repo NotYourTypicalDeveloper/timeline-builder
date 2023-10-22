@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { IEventsProps } from "./TimelineBuilder.tsx";
 
 interface ITimelineElementProps {
@@ -11,22 +12,55 @@ const TimelineArray: React.FC<ITimelineElementProps> = ({
   handleEditEvent,
   handleDeleteEvent,
 }) => {
-  return (
-    <div className="timeline-element-wrapper">
-      {eventsArr.map((event) => (
-        <div className="event" key={event.id}>
-          <div className="dot" />
-          <div>{event.text}</div>
-          <div className="event-actions">
-            <button
-              onClick={() =>
-                handleEditEvent(event.id, prompt("Edit event:", event.text))
-              }
-            >
-              Edit
-            </button>
+  const [edit, setEdit] = useState(false);
+  // const [editText, setEditText] = useState(text);
 
-            <button onClick={() => handleDeleteEvent(event.id)}>Delete</button>
+  return (
+    <div className="timeline-element-ctnr">
+      {eventsArr.map((event) => (
+        <div className="timeline-event-wrapper" key={event.id}>
+          <div className="dot" />
+          <div>
+            {edit ? (
+              <input
+                className="edit-input"
+                type="text"
+                value={event.text}
+                onChange={(e) => {
+                  handleEditEvent(event.id, e.target.value);
+                }}
+                onBlur={() => {
+                  setEdit(false);
+                  handleEditEvent(event.id, event.text);
+                }}
+              />
+            ) : (
+              <div>{event.text}</div>
+            )}
+            <div
+              onDoubleClick={() => {
+                setEdit(true);
+                handleEditEvent(event.id, event.text);
+              }}
+              className="action-buttons-wrapper"
+            >
+              <button
+                className="action-button"
+                onClick={() => {
+                  setEdit(true);
+                  handleEditEvent(event.id, event.text);
+                }}
+              >
+                edit
+              </button>
+
+              <button
+                className="action-button"
+                onClick={() => handleDeleteEvent(event.id)}
+              >
+                Delete
+              </button>
+            </div>
           </div>
         </div>
       ))}

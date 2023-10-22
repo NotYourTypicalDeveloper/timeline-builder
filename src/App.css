@@ -4,15 +4,26 @@
   background-color: blue;
   border-radius: 5%;
   display: flex;
+  width: 100%;
+  position: relative;
 }
 
-.timeline-element-wrapper {
+/* Timeline card */
+.timeline-element-ctnr {
   margin-left: 2rem;
-  min-width: 250px;
-  max-width: 400px;
+  min-width: 350px;
+  max-width: 500px;
   display: flex;
+  position: absolute;
+  top: -7px;
 }
 
+.timeline-event-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* .timeline-event-wrapper:odd  */
 .timeline-element-text {
   background-color: antiquewhite;
   color: blue;
@@ -26,4 +37,28 @@
   background-color: blue;
   border-radius: 50%;
   display: inline-block;
+}
+
+/* Edit input on timeline card */
+.edit-input {
+  border: 1px solid blue;
+}
+
+/* buttons */
+
+.action-button {
+  color: blue;
+  background-color: #fff;
+  border: 1px solid blue;
+  transition: background-color 300ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    background-color: rgb(85, 85, 246);
+    color: white;
+    outline: 0;
+  }
+}
+.action-button:first-child {
+  margin-bottom: 0.5rem;
 }

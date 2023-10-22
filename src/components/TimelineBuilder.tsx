@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import TimelineArray from "./TimelineArray.tsx";
 
 export interface IEventsProps {
@@ -9,8 +9,6 @@ const TimelineBuilder: React.FC = () => {
   const [events, setEvents] = useState<IEventsProps[]>([]);
   const [newEvent, setNewEvent] = useState("");
   const [showAddInput, setShowAddInput] = useState(false);
-  const [editMode, setEditMode] = useState(false);
-  const inputRef = useRef();
 
   const handleAddEvent = () => {
     if (newEvent.trim() !== "") {
@@ -23,7 +21,7 @@ const TimelineBuilder: React.FC = () => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       setEvents([...events, { text: e.target.value, id: Date.now() }]);
-      inputRef.current.value = "";
+      setShowAddInput(false);
     }
   };
   const handleEditEvent = (id: number, newText: string) => {
@@ -50,6 +48,7 @@ const TimelineBuilder: React.FC = () => {
   return (
     <div>
       <h1>Timeline Builder</h1>
+      <p>Click on the timeline to add an event</p>
       {showAddInput && (
         <div className="input-wrapper">
           <input
@@ -58,13 +57,13 @@ const TimelineBuilder: React.FC = () => {
             value={newEvent}
             onChange={(e) => setNewEvent(e.target.value)}
             onKeyDown={handleKeyPress}
-            ref={inputRef}
           />
-          <button onClick={handleAddEvent}>Add Event</button>
+          <button className="action-button" onClick={handleAddEvent}>
+            Add Event
+          </button>
         </div>
       )}
-      editmode: {editMode}
-      showAddInput : {showAddInput.toString()}
+
       <div className="timeline-bar" onClick={handleTimelineClick}>
         <TimelineArray
           eventsArr={events}
