@@ -17,6 +17,18 @@ const TimelineCard: React.FC<ITimelineCardProps> = ({
   const [edit, setEdit] = useState(false);
   const [editText, setEditText] = useState(eventItem.text);
 
+  const handleBlur = () => {
+    setEdit(false);
+    handleEditEvent(eventItem.id, editText);
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      setEdit(false);
+      handleEditEvent(eventItem.id, editText);
+    }
+  };
+
   return (
     <div className="timeline-event-wrapper" key={eventItem.id}>
       <div className="dot" />
@@ -29,10 +41,8 @@ const TimelineCard: React.FC<ITimelineCardProps> = ({
             onChange={(e) => {
               setEditText(e.target.value);
             }}
-            onBlur={() => {
-              setEdit(false);
-              handleEditEvent(eventItem.id, editText);
-            }}
+            onBlur={handleBlur}
+            onKeyDown={handleKeyPress}
           />
         ) : (
           <div

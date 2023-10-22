@@ -53,7 +53,7 @@ const TimelineBuilder: React.FC = () => {
       <h1>Timeline Builder</h1>
       <p>Click on the timeline to add an event</p>
       {showAddInput && (
-        <div className="input-wrapper">
+        <div className="add-input-wrapper">
           <input
             type="text"
             placeholder="Enter event description"
@@ -67,21 +67,17 @@ const TimelineBuilder: React.FC = () => {
           </button>
         </div>
       )}
-
       <div className="timeline-bar" onClick={handleTimelineClick}>
-        {/* <TimelineArray
-          eventsArr={events}
-          handleEditEvent={handleEditEvent}
-          handleDeleteEvent={handleDeleteEvent}
-        /> */}
-        {events.map((event) => (
-          <TimelineCard
-            key={event.id}
-            eventItem={event}
-            handleEditEvent={handleEditEvent}
-            handleDeleteEvent={handleDeleteEvent}
-          />
-        ))}
+        <div className="timeline-element-ctnr">
+          {events.map((event) => (
+            <TimelineCard
+              key={event.id}
+              eventItem={event}
+              handleEditEvent={handleEditEvent}
+              handleDeleteEvent={handleDeleteEvent}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
