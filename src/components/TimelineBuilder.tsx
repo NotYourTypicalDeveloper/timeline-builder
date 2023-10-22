@@ -12,14 +12,16 @@ const TimelineBuilder: React.FC = () => {
   const [showAddInput, setShowAddInput] = useState(false);
   const addInputRef = useRef();
 
+  // User clicks "Add" button
   const handleAddEvent = () => {
     if (newEvent.trim() !== "") {
       setEvents([...events, { text: newEvent, id: Date.now() }]);
       setNewEvent("");
-      setShowAddInput(false);
+      setShowAddInput(!showAddInput);
     }
   };
 
+  // User press enter to add element
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       setEvents([...events, { text: e.target.value, id: Date.now() }]);
@@ -45,7 +47,7 @@ const TimelineBuilder: React.FC = () => {
     setEvents(filter);
   };
   const handleTimelineClick = () => {
-    setShowAddInput(true);
+    setShowAddInput(!showAddInput);
   };
 
   return (
