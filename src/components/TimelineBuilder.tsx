@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import TimelineArray from "./TimelineArray.tsx";
 import TimelineCard from "./TimelineCard.tsx";
 
 export interface IEventsProps {
@@ -12,16 +11,17 @@ const TimelineBuilder: React.FC = () => {
   const [showAddInput, setShowAddInput] = useState(false);
   const addInputRef = useRef();
 
-  // User clicks "Add" button
+  // ADD element____
+  //on click
   const handleAddEvent = () => {
     if (newEvent.trim() !== "") {
       setEvents([...events, { text: newEvent, id: Date.now() }]);
       setNewEvent("");
-      setShowAddInput(!showAddInput);
+      setShowAddInput(false);
     }
   };
 
-  // User press enter to add element
+  //on key press____
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       setEvents([...events, { text: e.target.value, id: Date.now() }]);
@@ -29,6 +29,8 @@ const TimelineBuilder: React.FC = () => {
       addInputRef.current.value = "";
     }
   };
+
+  // EDIT element____
   const handleEditEvent = (id: number, newText: string) => {
     const updatedList = events.map((elem) => {
       if (elem.id === id) {
@@ -41,7 +43,7 @@ const TimelineBuilder: React.FC = () => {
     setEvents(updatedList);
   };
 
-  // delete item
+  // DELETE element____
   const handleDeleteEvent = (id: number) => {
     const filter = events.filter((elem) => elem.id !== id);
     setEvents(filter);
