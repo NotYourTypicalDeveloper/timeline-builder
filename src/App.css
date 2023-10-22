@@ -4,17 +4,23 @@
   background-color: blue;
   border-radius: 5%;
   display: flex;
-  width: 100%;
   position: relative;
 }
 
+.input-wrapper {
+  margin-bottom: 2rem;
+}
+
+.input-wrapper > input {
+  height: 2rem;
+}
 /* Timeline card */
 .timeline-element-ctnr {
   margin-left: 2rem;
   min-width: 350px;
   max-width: 500px;
   display: flex;
-  position: absolute;
+  position: relative;
   top: -7px;
 }
 
@@ -28,7 +34,8 @@
   background-color: antiquewhite;
   color: blue;
   border: 2px solid blue;
-  max-width: 350px;
+  min-width: 350px;
+  max-width: 400px;
   padding: 2rem;
 }
 .dot {
@@ -50,8 +57,8 @@
   color: blue;
   background-color: #fff;
   border: 1px solid blue;
+  margin: 0.1rem;
   transition: background-color 300ms ease-in-out;
-
   &:hover,
   &:focus {
     background-color: rgb(85, 85, 246);
@@ -59,6 +66,8 @@
     outline: 0;
   }
 }
-.action-button:first-child {
-  margin-bottom: 0.5rem;
+
+.action-buttons-wrapper > button {
+  font-size: smaller;
+  height: smaller;
 }

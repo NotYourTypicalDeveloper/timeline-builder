@@ -19,8 +19,8 @@ const TimelineCard: React.FC<ITimelineCardProps> = ({
 
   return (
     <div className="timeline-event-wrapper" key={eventItem.id}>
-      <div className="dot" />
       <div>
+        <div className="dot" />
         {edit ? (
           <input
             className="edit-input"
