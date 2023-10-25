@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import TimelineCard from "./TimelineCard.tsx";
 
 export interface IEventsProps {
@@ -9,7 +9,6 @@ const TimelineBuilder: React.FC = () => {
   const [events, setEvents] = useState<IEventsProps[]>([]);
   const [newEvent, setNewEvent] = useState("");
   const [showAddInput, setShowAddInput] = useState(false);
-  const addInputRef = useRef();
 
   // ADD element____
   //on click
@@ -25,8 +24,9 @@ const TimelineBuilder: React.FC = () => {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       setEvents([...events, { text: e.target.value, id: Date.now() }]);
+      setNewEvent("");
+
       setShowAddInput(false);
-      addInputRef.current.value = "";
     }
   };
 
